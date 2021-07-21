@@ -1,0 +1,47 @@
+ create database cinema_tickets;
+
+
+create table movies(
+    -> mid int(11) primary key auto_increment,
+    -> name varchar(200),
+    -> type varchar(50),
+    -> director varchar(100),
+    -> source varchar(50),
+    -> publisher varchar(100),
+    -> release_data varchar(30)
+    -> )
+    -> ;
+
+ create table  shows(
+id int(11) primary key auto_increment,
+ mid  int(11) not null,
+  hall int(11),
+ time varchar(50),
+  price double,
+  seats_used varchar(2000),
+   constraint fk_movies_mid foreign key(mid) references movies(mid)
+    );
+
+
+create table  orders(
+id int(11) primary key auto_increment,
+name varchar(50),
+phone varchar(11),
+data varchar(1000),
+place_time timestamp
+);
+String url = "jdbc:mysql://10.149.51.80:3306/test?relaxAutoCommit=true&zeroDateTimeBehavior=convertToNull";
+
+
+create table  staff(
+uid int(11) primary key auto_increment,
+username varchar(20),
+password varchar(20),
+role int(11)
+);
+
+ 结果集(ResultSet)是数据中查询结果返回的一种对象，可以说结果集是一个存储查询结果的对象，但是结果集并不仅仅具有存储的功能，他同时还具有操纵数据的功能，可能完成对数据的更新等.
+
+ 结果集读取数据的方法主要是getXXX()，他的参数可以是整型表示第几列（是从1开始的），还可以是列名。返回的是对应的XXX类型的值。如果对应那列 是空值，XXX是对象的话返回XXX型的空值，如果XXX是数字类型，如Float等则返回0,boolean返回false.使用getString()可以返回所有的列的值，不过返回的都是字符串类型的。XXX可以代表的类型有: 基本的数据类型如整型(int)，布尔型(Boolean)，浮点型(Float,Double)等，比特型(byte)，还包括一些特殊的类型，如：日 期类型（java.sql.Date），时间类型(java.sql.Time)，时间戳类型(java.sql.Timestamp)，大数型 (BigDecimal和BigInteger等)等。还可以使用getArray(intcolindex/String columnname)，通过这个方法获得当前行中，colindex所在列的元素组成的对象的数组。使用 getAsciiStream(intcolindex/String colname)可以获得该列对应的当前行的ascii流。也就是说所有的getXXX方法都是对当前行进行操作。
+
+ 结果集从其使用的特点上 可以分为四类，这四类的结果集的所具备的特点都是和Statement语句的创建有关，因为结果集是通过Statement语句执行后产生的，所以可以 说，结果集具备何种特点，完全决定于Statement，当然我是说下面要将的四个特点，在Statement创建时包括三种类型。首先是无参数类型的， 它对应的就是下面要介绍的基本的ResultSet对应的Statement。下面的代码中用到的Connection并没有对其初始化，变量conn代 表的就是Connection对应的对象。SqlStr代表的是响应的SQL语句.
